@@ -150,6 +150,6 @@ export class DFService {
   }
 
   isLoggedIn():boolean {
-    return this.session_token.length > 0;
+    return this.session_token != "null" && this.session_token.length > 0;
   }
 }
