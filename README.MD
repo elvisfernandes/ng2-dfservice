@@ -5,6 +5,13 @@ Please note this is still in alpha and not ready for production.
 
 Contributions are welcome! Just fork this repository, make changes and send a pull request.
 
+# Features
+- Uses Angular 2 dependency injection to provide api URL and API key, so you can keep your DSP data in a convenient place (environments/environment.ts, for example). You can even keep development, testing and production API URL and key in your codebase without worrying to change it depending on your environment.
+- Provides a helper class to create DreamFactory resources URL (you shouldn't worry with URL specification in the middle of your code).
+- Manages user login / logout, storing AWT session token in browser's local storage. You don't need a separate package to deal with this.
+- Emits events for login / logout / unauthorized login.
+- Provides methods for all REST operations on your DreamFactory instance.
+
 # How to use
 ## 1 - Install ng2-dfservice from npm
     $ npm install ng2-dfservice --save
