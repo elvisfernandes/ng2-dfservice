@@ -17,6 +17,8 @@ export class DFService {
   // Login/logout related event
   @Output() loginEvent = new EventEmitter<number>();
 
+  private static SESSION_TOKEN_IDENTIFIER:string = 'ng2-dfservice-session-token';
+
   public static RESOURCE_SCHEMA:string = "_schema";
   public static RESOURCE_TABLE:string = "_table";
   public static RESOURCE_PROCEDURE:string = "_proc";
@@ -46,7 +48,7 @@ export class DFService {
     this.requestOptions = new RequestOptions({ headers: this.headers });
 
     // Initizlizes this.session_token using localStorage
-    this.session_token = localStorage.getItem('session_token');
+    this.session_token = localStorage.getItem( DFService.SESSION_TOKEN_IDENTIFIER );
   }
 
   get( resource:DFResource ) {
@@ -91,13 +93,11 @@ export class DFService {
   * Login/logout related methods
   */
   get session_token() {
-    //console.log('getter ' + this._session_token);
     return this._session_token;
   }
   set session_token(token) {
-    //console.log('setter ' + this._session_token);
     this._session_token = token;
-    localStorage.setItem('session_token', this._session_token);
+    localStorage.setItem( DFService.SESSION_TOKEN_IDENTIFIER, this._session_token );
     
     if( this._session_token == '' ) {
       this.requestOptions.headers.delete('X-DreamFactory-Session-Token');
