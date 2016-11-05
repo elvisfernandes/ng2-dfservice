@@ -26,7 +26,7 @@ Just inject DFService in your component and use `get`, `post`, `put`, `patch`, `
 
     (...)
 
-    this.dfservice.get( new DFResource('service_name', DFService.TABLE, 'table_name') );
+    this.dfservice.get( new DFResource('service_name', DFService.RESOURCE_TABLE, 'table_name') );
 
 # Example
 To see a [pretty simplistic] working example please refer to [this GitHub repository](https://github.com/elvisfernandes/dfservice-example)

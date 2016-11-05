@@ -18,10 +18,10 @@ export class DFService {
   // Evento emitido ao fazer login ou logout
   @Output() loginEvent = new EventEmitter<number>();
 
-  public static SCHEMA:string = "_schema";
-  public static TABLE:string = "_table";
-  public static PROCEDURE:string = "_proc";
-  public static FUNCTION:string = "_func";
+  public static RESOURCE_SCHEMA:string = "_schema";
+  public static RESOURCE_TABLE:string = "_table";
+  public static RESOURCE_PROCEDURE:string = "_proc";
+  public static RESOURCE_FUNCTION:string = "_func";
 
   public static RESULT_OK:number = 200;
   public static RESULT_UNAUTHORIZED:number = 401;
