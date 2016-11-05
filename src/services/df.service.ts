@@ -6,8 +6,7 @@ import { DFResource } from './dfresource.class';
 
 @Injectable()
 export class DFService {
-
-  // TODO: Centralizar a URL do DSP com base no ambiente de execução 
+  
   private _base_api:string;
   private _api_key:string;
   private _session_token:string = '';
@@ -15,7 +14,7 @@ export class DFService {
   private headers:Headers;
   private requestOptions:RequestOptions;
 
-  // Evento emitido ao fazer login ou logout
+  // Login/logout related event
   @Output() loginEvent = new EventEmitter<number>();
 
   public static RESOURCE_SCHEMA:string = "_schema";
@@ -46,7 +45,7 @@ export class DFService {
     this.headers.append( 'X-DreamFactory-Api-Key', this._api_key );
     this.requestOptions = new RequestOptions({ headers: this.headers });
 
-    // Inicializa this.session_token com o token que estiver armazenado no localStorage
+    // Initizlizes this.session_token using localStorage
     this.session_token = localStorage.getItem('session_token');
   }
 
