@@ -48,6 +48,8 @@ export class DFService {
     this._base_api = api_endpoint;
     this._api_key = api_key;
 
+    DFService.SESSION_TOKEN_IDENTIFIER += this._api_key;
+
     this._resourcesList = dfresources;
 
     this.headers = new Headers();
