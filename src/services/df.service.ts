@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 
 import { DFResource } from './dfresource.class';
+import { DFResourceListInterface } from './dfresourcelist.interface';
 
 @Injectable()
 export class DFService {
@@ -13,6 +14,8 @@ export class DFService {
 
   private headers:Headers;
   private requestOptions:RequestOptions;
+
+  private _resourcesList:DFResourceListInterface;
 
   // Login/logout related event
   @Output() loginEvent = new EventEmitter<number>();
@@ -34,14 +37,18 @@ export class DFService {
 
   public static API_URL = new OpaqueToken('df2_api_url');
   public static API_KEY = new OpaqueToken('df2_api_key');
+  public static DF_RESOURCES = new OpaqueToken('DFResourceListInterface');
 
   constructor( 
                 @Inject(DFService.API_URL) api_endpoint:string, 
-                @Inject(DFService.API_KEY) api_key:string, 
+                @Inject(DFService.API_KEY) api_key:string,
+                @Inject(DFService.DF_RESOURCES) private dfresources:DFResourceListInterface, 
                 private http:Http
               ) {
     this._base_api = api_endpoint;
     this._api_key = api_key;
+
+    this._resourcesList = dfresources;
 
     this.headers = new Headers();
     this.headers.append( 'X-DreamFactory-Api-Key', this._api_key );
@@ -87,6 +94,22 @@ export class DFService {
                     this._base_api + resource.getResourcePath(),
                     this.requestOptions
                   );
+  }
+
+  /*
+  * Getters for DFResources
+  */
+  get tables() {
+    return this.dfresources.tables;
+  }
+  get procs() {
+    return this.dfresources.procs;
+  }
+  get funcs() {
+    return this.dfresources.funcs;
+  }
+  get schemas() {
+    return this.dfresources.schemas;
   }
 
   /*
