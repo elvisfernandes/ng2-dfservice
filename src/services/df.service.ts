@@ -56,7 +56,7 @@ export class DFService {
     this.headers.append( 'X-DreamFactory-Api-Key', this._api_key );
     this.requestOptions = new RequestOptions({ headers: this.headers });
 
-    // Initizlizes this.session_token using localStorage
+    // Initializes this.session_token using localStorage
     this.session_token = localStorage.getItem( DFService.SESSION_TOKEN_IDENTIFIER );
   }
 
@@ -124,7 +124,7 @@ export class DFService {
     this._session_token = token;
     localStorage.setItem( DFService.SESSION_TOKEN_IDENTIFIER, this._session_token );
     
-    if( this._session_token == '' ) {
+    if( this._session_token || this._session_token === '') {
       this.requestOptions.headers.delete('X-DreamFactory-Session-Token');
     }
     else {
