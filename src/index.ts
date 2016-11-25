@@ -1,4 +1,4 @@
-import { DFDataStore } from './services/dfdatastore';
+import { DFDataStore } from './services/dfdatastore.class';
 import { DFModel } from './services/dfmodel.interface';
 import { PROVIDERS } from './services';
 
