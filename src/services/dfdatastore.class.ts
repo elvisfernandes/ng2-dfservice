@@ -14,7 +14,7 @@ export abstract class DFDataStore {
     
     public items:Observable<List<DFModel>> = this._subject.asObservable();
 
-    constructor( @Inject( DFService ) private dfservice:DFService ) {
+    constructor( private dfservice:DFService ) {
         this._subject.next( this._subject.getValue().push( {a:1} ) );
     }
 
