@@ -86,7 +86,7 @@ export class DFService {
                   );
   }
 
-  delete( resource:DFResource, model:DFModel ) {
+  delete( resource:DFResource, model?:DFModel ) {
     // Backup x-http-method from defaults, just in case...
     let xhttpmethod = this.requestOptions.headers.get('X-HTTP-METHOD');
 
