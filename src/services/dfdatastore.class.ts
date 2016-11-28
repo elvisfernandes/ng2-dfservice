@@ -2,13 +2,14 @@ import { Inject } from '@angular/core';
 import { DFService } from './df.service';
 import { DFResource } from './dfresource.class';
 import { Observable } from 'rxjs/observable';
-import { DFModel } from './dfmodel.interface';
+import { DFModel } from './dfmodel.class';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { List } from 'immutable';
 
 export abstract class DFDataStore {
 
     abstract dfresource:DFResource;
+    abstract modelclass:any;
 
     private _subject:BehaviorSubject<List<DFModel>> = new BehaviorSubject(List([]));
     
@@ -32,7 +33,12 @@ export abstract class DFDataStore {
         if( this.dfresource ) {
             this.dfservice.get( this.dfresource )
                 .subscribe( next => {
-                    this._subject.next( next.json().resource );
+                    for( let res of next.json().resource ) {
+                        let model:DFModel = new this.modelclass();
+                        model.fromJSON(res);
+
+                        this.addToDataStore(model);
+                    }
                 });
         }
     }
@@ -42,10 +48,14 @@ export abstract class DFDataStore {
      * params in this.dfresource.params
      */
     reload() {
-        // Lets eveyone know what is going on here... shall we?
-        this._subject.next( null );
+        this.clearDataStore();
 
         this.retrieve();
+    }
+
+    private clearDataStore() {
+        // Call next() and lets eveyone know what is going on here... shall we?
+        this._subject.next( List([]) );
     }
 
     update( model:DFModel ) {
@@ -54,5 +64,9 @@ export abstract class DFDataStore {
 
     delete( model:DFModel ) {
 
+    }
+
+    private addToDataStore( model:DFModel ) {
+        this._subject.next( this._subject.getValue().push(model) );
     }
 }
