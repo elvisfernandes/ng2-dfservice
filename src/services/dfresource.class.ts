@@ -94,4 +94,35 @@ export class DFResource {
 
         return path;
     }
+
+    // Default query params
+    params = {
+        fields: '',
+        related: '',
+        filter: '',
+        limit: 10,
+        offset: 0,
+        order: '',
+        group: '',
+        include_count: false,
+        include_schema: false,
+        ids: ''
+    };
+
+    getQueryString() {
+        let qstring = '';
+
+        if( this.params.fields !== '' ) qstring += 'fields=' + encodeURIComponent(this.params.fields) + '&';
+        if( this.params.related !== '' ) qstring += 'related=' + encodeURIComponent(this.params.related) + '&';
+        if( this.params.filter !== '' ) qstring += 'filter=' + encodeURIComponent(this.params.filter) + '&';
+        if( this.params.limit !== 0 ) qstring += 'limit=' + this.params.limit + '&';
+        if( this.params.offset !== 0 ) qstring += 'offset=' + this.params.offset + '&';
+        if( this.params.order !== '' ) qstring += 'order=' + encodeURIComponent(this.params.order) + '&';
+        if( this.params.group !== '' ) qstring += 'group=' + encodeURIComponent(this.params.group) + '&';
+        if( this.params.include_count ) qstring += 'include_count=true' + '&';
+        if( this.params.include_schema ) qstring += 'include_schema=true' + '&';
+        if( this.params.ids !== '' ) qstring += 'ids=' + encodeURIComponent(this.params.ids) + '&';
+
+        return qstring;
+    }
 }

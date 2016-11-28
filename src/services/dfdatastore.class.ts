@@ -17,9 +17,42 @@ export abstract class DFDataStore {
     constructor( private dfservice:DFService ) {}
 
     loadInitialData() {
-        this.dfservice.get( this.dfresource )
-            .subscribe( next => {
-                this._subject.next( next.json().resource );
-            });
+        this.retrieve();
+    }
+
+    create( model:DFModel ) {
+
+    }
+
+    /**
+     * Retrieves records for this DataStore from server based on query params
+     * defined in this.dfresourceparams 
+     */
+    retrieve( ) {
+        if( this.dfresource ) {
+            this.dfservice.get( this.dfresource )
+                .subscribe( next => {
+                    this._subject.next( next.json().resource );
+                });
+        }
+    }
+
+    /**
+     * Clears the stored objects and query the server again, considering the defined
+     * params in this.dfresource.params
+     */
+    reload() {
+        // Lets eveyone know what is going on here... shall we?
+        this._subject.next( null );
+
+        this.retrieve();
+    }
+
+    update( model:DFModel ) {
+
+    }
+
+    delete( model:DFModel ) {
+
     }
 }

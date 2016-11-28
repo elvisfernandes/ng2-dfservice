@@ -56,7 +56,7 @@ export class DFService {
 
   get( resource:DFResource ) {
     return this.http.get( 
-                    this._base_api + resource.getResourcePath(), 
+                    this._base_api + resource.getResourcePath() + '?' + resource.getQueryString(), 
                     this.requestOptions 
                   );
   }
