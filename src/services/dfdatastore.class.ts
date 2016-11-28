@@ -14,9 +14,7 @@ export abstract class DFDataStore {
     
     public items:Observable<List<DFModel>> = this._subject.asObservable();
 
-    constructor( private dfservice:DFService ) {
-        this._subject.next( this._subject.getValue().push( {a:1} ) );
-    }
+    constructor( private dfservice:DFService ) {}
 
     loadInitialData() {
         this.dfservice.get( this.dfresource )
