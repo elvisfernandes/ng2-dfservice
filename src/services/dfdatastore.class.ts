@@ -92,12 +92,29 @@ export abstract class DFDataStore {
         this._subject.next( List([]) );
     }
 
+    getById( id:number ):DFModel {
+        let index = this._subject.getValue().findIndex( (model:DFModel) => { return model.id === id} )
+        return this._subject.getValue().get(index);
+    }
+
     update( model:DFModel ) {
 
     }
 
     delete( model:DFModel ) {
+        if( model.id ) {
+            this.dfservice.delete( this.dfresource, model )
+                .subscribe( (next) => {
+                    if( next.json().resource.length == 1 ) {
+                        let id:number = next.json().resource[0].id;
 
+                        let items = this._subject.getValue();
+                        let index = items.findIndex( (model:DFModel) => { return model.id === id} );
+                        
+                        this._subject.next( items.delete(index) );
+                    }
+                });
+        }
     }
 
     private addToDataStore( model:DFModel ) {

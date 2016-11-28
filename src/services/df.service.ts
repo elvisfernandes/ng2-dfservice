@@ -86,11 +86,28 @@ export class DFService {
                   );
   }
 
-  delete( resource:DFResource ) {
-    return this.http.delete(
+  delete( resource:DFResource, model:DFModel ) {
+    // Backup x-http-method from defaults, just in case...
+    let xhttpmethod = this.requestOptions.headers.get('X-HTTP-METHOD');
+
+    let delete_requestOptions = this.requestOptions;
+    delete_requestOptions.headers.set('X-HTTP-METHOD', 'DELETE');
+
+    let req_result = this.http.post(
                     this._base_api + resource.getResourcePath(),
-                    this.requestOptions
+                    { resource: [model.id] },
+                    delete_requestOptions
                   );
+
+    // Sets header back to default
+    if ( xhttpmethod ) {
+      this.requestOptions.headers.set('X-HTTP-METHOD', xhttpmethod);
+    }
+    else {
+      this.requestOptions.headers.delete('X-HTTP-METHOD');
+    }
+
+    return req_result;
   }
 
   /*
