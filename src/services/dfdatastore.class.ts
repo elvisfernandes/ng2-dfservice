@@ -98,7 +98,19 @@ export abstract class DFDataStore {
     }
 
     update( model:DFModel ) {
-
+        if( model.id ) {
+            this.dfservice.patch( this.dfresource, model )
+                .subscribe( (next) => {
+                    console.log(next);
+                    if( next.json().resource[0].id === model.id ) {
+                        let id:number = next.json().resource[0].id;
+                        let items = this._subject.getValue();
+                        let index = items.findIndex( (model:DFModel) => { return model.id === id} );
+                        
+                        this._subject.next( items.set(index, model) );
+                    }
+                });
+        }
     }
 
     delete( model:DFModel ) {

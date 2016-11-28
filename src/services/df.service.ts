@@ -70,10 +70,10 @@ export class DFService {
                   );
   }
 
-  patch( resource:DFResource ) {
+  patch( resource:DFResource, model:DFModel ) {
     return this.http.patch(
                     this._base_api + resource.getResourcePath(),
-                    resource.body,
+                    { resource: [ model.toJSON() ] },
                     this.requestOptions
                   );
   }
