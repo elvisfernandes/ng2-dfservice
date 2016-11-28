@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 
 import { DFResource } from './dfresource.class';
+import { DFModel } from './dfmodel.class';
 
 @Injectable()
 export class DFService {
@@ -61,10 +62,10 @@ export class DFService {
                   );
   }
 
-  post( resource:DFResource ) {
+  post( resource:DFResource, dfmodel?:DFModel ) {
     return this.http.post(
                     this._base_api + resource.getResourcePath(),
-                    resource.body,
+                    { resource: [dfmodel.toJSON()] },
                     this.requestOptions
                   );
   }

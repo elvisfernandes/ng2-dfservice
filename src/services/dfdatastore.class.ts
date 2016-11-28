@@ -21,25 +21,59 @@ export abstract class DFDataStore {
         this.retrieve();
     }
 
+    /**
+     * Creates a new model in DF server and updates the local DataStore
+     */
     create( model:DFModel ) {
+        if( !model.id ) {
+            this.dfservice.post( this.dfresource, model )
+                .subscribe( (next) => {
+                    if( next.json().resource.length == 1 ) {
+                        let id:number = next.json().resource[0].id;
 
+                        // Gets information from the server regarding the newly created model
+                        this.retrieve(id);
+                    }
+                });
+        }
     }
 
     /**
      * Retrieves records for this DataStore from server based on query params
      * defined in this.dfresourceparams 
      */
-    retrieve( ) {
+    retrieve( id?:number ) {
         if( this.dfresource ) {
-            this.dfservice.get( this.dfresource )
-                .subscribe( next => {
-                    for( let res of next.json().resource ) {
-                        let model:DFModel = new this.modelclass();
-                        model.fromJSON(res);
+            if( !id ) {
+                this.dfservice.get( this.dfresource )
+                    .subscribe( next => {
+                        for( let res of next.json().resource ) {
+                            let model:DFModel = new this.modelclass();
+                            model.fromJSON(res);
 
-                        this.addToDataStore(model);
-                    }
-                });
+                            this.addToDataStore(model);
+                        }
+                    });
+            }
+            else {
+                // Stores default param config, just in case...
+                let temp_ids = this.dfresource.params.ids;
+
+                this.dfresource.params.ids = '' + id;
+                this.dfservice.get( this.dfresource )
+                    .subscribe( (next) => {
+                        let res = next.json().resource;
+                        if( res && res.length == 1 ) {
+                            let model:DFModel = new this.modelclass();
+                            model.fromJSON( res[0] );
+
+                            this.addToDataStore(model);
+                        }
+                    });
+
+                // Reverting params ids back to original
+                this.dfresource.params.ids = temp_ids;
+            }
         }
     }
 
