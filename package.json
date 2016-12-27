@@ -1,6 +1,6 @@
 {
   "name": "ng2-dfservice",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "tsc && karma start",
@@ -39,8 +39,7 @@
     "typescript": "2.0.2",
     "typings": "^1.0.4",
     "zone.js": "0.6.23",
-    "immutable": "3.8.1",
-    "typings": "2.1.0"
+    "immutable": "3.8.1"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -18,7 +18,19 @@ For more information about DreamFactory (tm) visit [their website](http://dreamf
 
 # How to use
 ## 1 - Install ng2-dfservice from npm
+
+Make sure you have typings installed, either globally or locally
+
+    $ npm install typings
+
+OR
+
+    $ npm install -g typings
+
+Now you can install ng2-dfservice
+
     $ npm install ng2-dfservice --save
+
 
 ## 2 - Extend abstract class DFModel and implement proper methods to create your models
     import { DFModel } from 'ng2-dfservice';

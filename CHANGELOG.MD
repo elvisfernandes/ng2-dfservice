@@ -1,4 +1,6 @@
-0.0.4 - BugFix: require typings as a development requirement (fixes bug (#1)[https://github.com/elvisfernandes/ng2-dfservice/issues/1])
+0.0.5 - The last bugfix don't really fix the bug, which is not really a bug. Just install typings and you're good to go.
+
+0.0.4 - BugFix: require typings as a development requirement (fixes bug [#1](https://github.com/elvisfernandes/ng2-dfservice/issues/1))
 
 0.0.3 - Uses DataStore to manage communication with the server
 - New feature: extend DFDataStore to simplify access to data that came from server and to send data as well.
