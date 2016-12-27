@@ -23,7 +23,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/username/repo/issues"
+    "url": "https://github.com/elvisfernandes/ng2-dfservice/issues"
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -39,7 +39,8 @@
     "typescript": "2.0.2",
     "typings": "^1.0.4",
     "zone.js": "0.6.23",
-    "immutable": "3.8.1"
+    "immutable": "3.8.1",
+    "typings": "2.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
