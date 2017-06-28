@@ -1,4 +1,7 @@
 # ng2-dfservice
+
+**This module has been deprecated, basically due to naming conventions. The same functionality is provided by [ng-dfservice](htts://github.com/elvisfernandes/ng-dfservice) module**. Use that other module instead (unless you want to stay on Angular 2).
+
 This module provides an Angular 2 service to access DreamFactory (tm) from Angular 2.
 
 Please note this is still in alpha and not ready for production.
